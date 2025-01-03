@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Book Details</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen py-12 px-4">
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+        <div class="relative">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-12">
+                <div class="absolute inset-0 bg-black opacity-10 pattern-dots"></div>
+                <h1 class="text-4xl font-bold text-white tracking-tight" th:text="${book.title}">Book title</h1>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 transform transition-transform hover:scale-105">
+                    <h2 class="text-sm uppercase text-blue-600 font-semibold tracking-wider mb-2">Genre</h2>
+                    <p class="text-2xl font-bold text-gray-800" th:text="${book.genre}">Genre</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 transform transition-transform hover:scale-105">
+                    <h2 class="text-sm uppercase text-indigo-600 font-semibold tracking-wider mb-2">Year</h2>
+                    <p class="text-2xl font-bold text-gray-800" th:text="${book.year}">Year</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                    <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Authors
+                </h2>
+                <ul class="space-y-3">
+                    <li th:each="author : ${book.authors}"
+                        class="bg-white rounded-xl px-6 py-4 shadow-sm border border-gray-100
+                                   transform transition-all hover:shadow-md hover:scale-102 hover:border-blue-100">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full p-2 text-white">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <span class="text-lg font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+                                  th:text="${author.getName()}">
+                                </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

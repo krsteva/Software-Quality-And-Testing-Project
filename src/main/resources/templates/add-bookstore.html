@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Bookstore</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex items-center justify-center py-12 px-4">
+<div class="max-w-md w-full">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800" th:text="${bookStores != null ? 'Edit Bookstore' : 'Add New Bookstore'}"></h1>
+        <p class="text-gray-600 mt-2">Enter bookstore details below</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+        <form th:method="POST" th:action="@{/bookstore/add}" class="space-y-6">
+            <input type="hidden" name="id" th:value="${bookStores?.id}">
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" th:value="${bookStores?.name}"
+                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                       required>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">City</label>
+                <input type="text" name="city" th:value="${bookStores?.city}"
+                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                       required>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Address</label>
+                <input type="text" name="address" th:value="${bookStores?.address}"
+                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                       required>
+            </div>
+
+            <button type="submit"
+                    class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl
+                               hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500
+                               focus:ring-offset-2 transform transition-all hover:scale-105">
+                Save Bookstore
+            </button>
+        </form>
+    </div>
+
+    <div class="mt-6 text-center">
+        <a href="/bookstore"
+           class="text-blue-600 hover:text-blue-800 font-medium">
+            ← Back to Bookstores
+        </a>
+    </div>
+</div>
+</body>
+</html>

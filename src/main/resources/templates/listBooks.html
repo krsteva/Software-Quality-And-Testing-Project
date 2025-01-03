@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Books Homepage - Welcome to My Book Store</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen py-8 px-4">
+<div class="max-w-6xl mx-auto">
+  <header class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-800">Welcome to My Book Store</h1>
+  </header>
+
+  <main class="space-y-8">
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Title</th>
+            <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Book Store</th>
+            <th class="px-6 py-4 text-center" colspan="4">Actions</th>
+          </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+          <tr th:each="book : ${books}" class="hover:bg-gray-50">
+            <td class="px-6 py-4 text-gray-800" th:text="${book.getTitle()}"></td>
+            <td class="px-6 py-4 text-gray-800" th:text="${book.getBookStore().getName()}"></td>
+            <td class="px-3 py-4">
+              <a th:href="@{'/books/edit-form/{id}' (id=${book.getId()})}"
+                 id="edit-item" class="text-blue-600 hover:text-blue-800">Edit</a>
+            </td>
+            <td class="px-3 py-4">
+              <a th:href="@{'/books/delete/{id}' (id=${book.getId()})}"
+                 class="text-red-600 hover:text-red-800">Delete</a>
+            </td>
+            <td class="px-3 py-4">
+              <a th:href="@{'/review/reviews/{id}' (id=${book.getId()})}"
+                 class="text-green-600 hover:text-green-800">Add Review</a>
+            </td>
+            <td class="px-3 py-4">
+              <a th:href="@{'/review/show/{id}' (id=${book.getId()})}"
+                 class="text-purple-600 hover:text-purple-800">Show Review</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <a th:href="@{'/books/add-form'}"
+         class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+        Add New Book
+      </a>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-lg">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Choose book:</h2>
+      <form th:action="@{/author}" th:method="post" class="space-y-4">
+        <ul class="space-y-3">
+          <li th:each="book : ${books}" class="flex items-center space-x-3">
+            <input type="radio" name="bookIsbn" th:value="${book.isbn}"
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+            <label th:text="${book.title}" class="text-gray-700"></label>
+          </li>
+        </ul>
+        <p th:text="${error}" class="text-red-600"></p>
+        <button type="submit"
+                class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-lg">
+      <p class="text-lg font-semibold text-gray-800 mb-3">Highest average rated book</p>
+      <div class="bg-blue-50 p-4 rounded-xl">
+        <th:block th:if="${highestRatedBook} != null">
+                        <span class="text-gray-800"
+                              th:text="${highestRatedBook.getTitle()} + ' - Rating: ' +  ${highestRatedBook.getAverage()}">
+                        </span>
+        </th:block>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

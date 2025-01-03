@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Add new Author to Book</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen p-8">
+<div class="max-w-4xl mx-auto">
+  <header class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-800 mb-2">Add Author to Book</h1>
+    <p class="text-gray-600">Select an author from the list below to add to your book</p>
+  </header>
+
+  <div class="flex flex-col md:flex-row gap-8">
+    <section class="w-full md:w-2/3 bg-white rounded-2xl shadow-lg p-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Available Authors</h2>
+      <form th:action="@{/bookdetails}" th:method="post" class="space-y-4">
+        <input type="hidden" name="isbn" th:value="${isbn}">
+        <ul class="space-y-3 divide-y divide-gray-100">
+          <li th:each="author : ${authors}"
+              class="group relative hover:bg-blue-50 rounded-xl transition-all duration-200">
+            <label class="flex items-center p-4 cursor-pointer">
+              <input type="radio" name="authorId" th:value="${author.id}"
+                     class="h-5 w-5 text-blue-600 border-gray-300 focus:ring-blue-500">
+              <span class="ml-4 flex flex-col">
+                                    <span class="text-lg font-medium text-gray-900"
+                                          th:text="${author.getName() + ' ' + author.getLastName()}">
+                                    </span>
+                                </span>
+            </label>
+          </li>
+        </ul>
+        <div class="mt-8">
+          <button type="submit"
+                  class="w-full bg-blue-600 text-white px-6 py-3 rounded-xl font-medium
+                                       hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500
+                                       focus:ring-offset-2 transition-colors duration-200">
+            Add Selected Author
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="w-full md:w-1/3">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
+          <h3 class="text-lg font-semibold text-gray-800">Book Details</h3>
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-600 font-medium">ISBN</span>
+            <span class="text-gray-900 font-semibold" th:text="${isbn}"></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</body>
+</html>
