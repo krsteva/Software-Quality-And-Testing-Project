@@ -10,6 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.context.annotation.Profile;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -117,8 +120,11 @@ public class BookTest {
         scoreSelect.selectByValue("5");
 
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        driver.findElement(By.name("time")).sendKeys(now.format(formatter));
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+        WebElement dateInput = driver.findElement(By.name("time"));
+        dateInput.sendKeys(now.format(formatter));
+
 
         driver.findElement(By.cssSelector("button[type='submit']")).click();
 
@@ -150,7 +156,7 @@ public class BookTest {
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime weekAgo = now.minusWeeks(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
         driver.findElement(By.name("from")).sendKeys(weekAgo.format(formatter));
         driver.findElement(By.name("to")).sendKeys(now.format(formatter));

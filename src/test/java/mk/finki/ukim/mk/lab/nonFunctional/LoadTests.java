@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,13 +21,11 @@ class LoadTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private BookService bookService;
-
     @Test
     void shouldHandleMultipleSimultaneousBookListings() throws Exception {
         int numberOfRequests = 50;
         CountDownLatch latch = new CountDownLatch(numberOfRequests);
+
         AtomicInteger successCount = new AtomicInteger(0);
 
         ExecutorService executor = Executors.newFixedThreadPool(10);

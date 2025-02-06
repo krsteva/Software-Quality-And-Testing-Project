@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -17,7 +18,7 @@ class StressTests {
 
     @Test
     void shouldHandleRapidBookEdits() throws Exception {
-        // Simulate rapid consecutive edits to the same book
+
         for (int i = 0; i < 20; i++) {
             mockMvc.perform(post("/books/add")
                             .param("id", "1")
@@ -32,7 +33,6 @@ class StressTests {
 
     @Test
     void shouldHandleRapidPageTransitions() throws Exception {
-        // Simulate rapid page transitions
         for (int i = 0; i < 50; i++) {
             mockMvc.perform(get("/books")).andExpect(status().isOk());
             mockMvc.perform(get("/bookstore")).andExpect(status().isOk());

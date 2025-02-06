@@ -24,16 +24,14 @@ class ResourceUsageTests {
         Runtime runtime = Runtime.getRuntime();
         long initialMemory = runtime.totalMemory() - runtime.freeMemory();
 
-        // Test memory usage with repeated operations
         for (int i = 0; i < 100; i++) {
             List<Book> books = bookService.listBooks();
-            books = null;  // Allow for garbage collection
+            books = null;
         }
 
-        System.gc();  // Request garbage collection
+        System.gc();
         long finalMemory = runtime.totalMemory() - runtime.freeMemory();
 
-        // Check memory usage hasn't grown significantly
         assertTrue((finalMemory - initialMemory) < 5_000_000,
                 "Book listing appears to be leaking memory");
     }
@@ -46,13 +44,13 @@ class ResourceUsageTests {
         LocalDateTime from = LocalDateTime.now().minusDays(30);
         LocalDateTime to = LocalDateTime.now();
 
-        // Test memory usage with repeated operations
+
         for (int i = 0; i < 100; i++) {
             List<Review> reviews = reviewService.findByTimestampBetween(from, to);
-            reviews = null;  // Allow for garbage collection
+            reviews = null;
         }
 
-        System.gc();  // Request garbage collection
+        System.gc();
         long finalMemory = runtime.totalMemory() - runtime.freeMemory();
 
         assertTrue((finalMemory - initialMemory) < 5_000_000,

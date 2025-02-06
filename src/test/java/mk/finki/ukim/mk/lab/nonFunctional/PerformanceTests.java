@@ -19,12 +19,6 @@ class PerformanceTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private BookService bookService;
-
-    @Autowired
-    private ReviewService reviewService;
-
     @Test
     void listBooks_ShouldRespondQuickly() throws Exception {
         long startTime = System.currentTimeMillis();
