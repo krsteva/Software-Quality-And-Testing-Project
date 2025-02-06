@@ -20,7 +20,8 @@ jobs:
           cache: maven
 
       - name: Run Non-Functional Tests
-        run: mvn test -Dtest=*NonFunctionalTest
+        run: mvn test -Dtest=mk.finki.ukim.mk.lab.nonFunctional.*Tests
+
 
       - name: Upload Test Reports
         if: always()
